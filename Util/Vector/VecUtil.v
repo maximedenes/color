@@ -276,7 +276,7 @@ Section Vnth.
   Lemma Vnth_cons_tail : forall x n (v : vector A n) i (h1:i<S n) (h2:i>0),
     Vnth (Vcons x v) h1 = Vnth v (Vnth_cons_tail_aux h1 h2).
 
-  Proof. intros. simpl. destruct i. omega. apply Vnth_eq. omega. Qed.
+  Proof. intros. simpl. destruct i. lia. apply Vnth_eq. omega. Qed.
 
   Lemma Vnth_cons : forall x n (v : vector A n) i (h1:i<S n),
     Vnth (Vcons x v) h1 = match lt_ge_dec 0 i with
@@ -292,7 +292,7 @@ Section Vnth.
   Lemma Vnth_const : forall n (a : A) i (ip : i < n), Vnth (Vconst a n) ip = a.
 
   Proof.
-    induction n; intros. omega. destruct i. trivial. simpl. rewrite IHn. refl.
+    induction n; intros. lia. destruct i. trivial. simpl. rewrite IHn. refl.
   Qed.
 
   Lemma Vnth_cast_aux : forall n n' k, n = n' -> k < n' -> k < n.
@@ -303,7 +303,7 @@ Section Vnth.
     Vnth (Vcast v e) h = Vnth v (Vnth_cast_aux e h).
 
   Proof.
-    induction v as [|x p v IHv]. intros; omega. intros [|n']; try discr.
+    induction v as [|x p v IHv]. intros; lia. intros [|n']; try discr.
     inversion e; subst p; intros [|k] h; rewrite Vcast_refl; simpl.
     refl. rewrite (IHv n' (eq_refl n') k); apply Vnth_eq; refl.
   Qed.
@@ -375,16 +375,16 @@ Section Vadd.
   Proof.
     induction v; intros x i hi; simpl Vadd.
     (* nil *)
-    destruct (eq_nat_dec i 0). apply Vnth_cons_head. hyp. omega.
+    destruct (eq_nat_dec i 0). apply Vnth_cons_head. hyp. lia.
     (* cons *)
     destruct (eq_nat_dec i (S n)).
     (* i = S n *)
     subst. rewrite Vnth_cons. destruct (lt_ge_dec 0 (S n)). 2: omega.
-    rewrite IHv. destruct (eq_nat_dec (S n - 1) n). refl. omega.
+    rewrite IHv. destruct (eq_nat_dec (S n - 1) n). refl. lia.
     (* i <> S n *)
     rename h into y. rewrite Vnth_cons. destruct (lt_ge_dec 0 i).
-    rewrite IHv. destruct (eq_nat_dec (i-1) n). omega.
-    rewrite Vnth_cons. destruct (lt_ge_dec 0 i). 2: omega. apply Vnth_eq. refl.
+    rewrite IHv. destruct (eq_nat_dec (i-1) n). lia.
+    rewrite Vnth_cons. destruct (lt_ge_dec 0 i). 2: lia. apply Vnth_eq. refl.
     sym. apply Vnth_cons_head. omega.
   Qed.
 
@@ -417,13 +417,13 @@ Section Vreplace.
   Lemma Vreplace_tail : forall n i (ip : S i < S n) (v : vector A (S n)) a,
     Vreplace v ip a = Vcons (Vhead v) (Vreplace (Vtail v) (lt_S_n ip) a).
 
-  Proof. destruct n; intros. omega. VSntac v. refl. Qed.
+  Proof. destruct n; intros. lia. VSntac v. refl. Qed.
 
   Lemma Vnth_replace : forall n i (ip ip' : i < n) (v : vector A n) (a : A),
     Vnth (Vreplace v ip a) ip' = a.
 
   Proof.
-    induction n; intros. omega.
+    induction n; intros. lia.
     VSntac v. destruct i. trivial. simpl. apply IHn.
   Qed.
 
@@ -431,7 +431,7 @@ Section Vreplace.
     (v : vector A n) (a : A), i <> j -> Vnth (Vreplace v ip a) jp = Vnth v jp.
 
   Proof.
-    induction n; intros. omega.
+    induction n; intros. lia.
     VSntac v. destruct i; destruct j; trivial.
     omega. simpl. rewrite IHn. trivial. omega.
   Qed.
@@ -441,7 +441,7 @@ Section Vreplace.
 
   Proof.
     intros. subst i2. revert i1 h1 h2. elim v; clear v; simpl; intros.
-    omega. destruct i1. refl. apply Vtail_eq. apply H.
+    lia. destruct i1. refl. apply Vtail_eq. apply H.
   Qed.
 
   Lemma Vreplace_eq_elim : forall n (v : vector A n) i (h : i < n) x x',
@@ -864,7 +864,7 @@ Section Vsub.
     Vnth (Vsub v h) p = Vnth v (Vnth_sub_aux h p).
 
   Proof.
-    induction k; intros. omega. simpl. destruct j. apply Vnth_eq. omega.
+    induction k; intros. lia. simpl. destruct j. apply Vnth_eq. omega.
     rewrite IHk. apply Vnth_eq. omega.
   Qed.
 
@@ -970,7 +970,7 @@ Section Vsub.
   Proof.
     induction v; intros.
     (* Vnil *)
-    apply Veq_nth; intros. omega.
+    apply Veq_nth; intros. lia.
     (* Vcons *)
     destruct i; simpl in *; [rewrite Vcast_refl | rewrite Vcast_cons];
       f_equal; rewrite !Vsub_cons.
@@ -1005,7 +1005,7 @@ Section Vsub.
   Proof.
     induction v; intros.
     (* Vnil *)
-    apply Veq_nth; intros. omega.
+    apply Veq_nth; intros. lia.
     (* Vcons *)
     destruct i; simpl; rewrite Vcast_cons; f_equal; rewrite !Vsub_cons.
     (* i = 0 *)
@@ -1039,7 +1039,7 @@ Section Vsub.
     Vsub v h1 = Vsub v' h1 -> Vsub v h2 = Vsub v' h2 -> v = v'.
 
   Proof.
-    intros. assert (e:i+(n-i)=n). omega.
+    intros. assert (e:i+(n-i)=n). lia.
     rewrite (Veq_app_aux v h1 h2 e), (Veq_app_aux v' h1 h2 e).
     apply Vcast_eq_intro. apply Vapp_eq_intro; hyp.
   Qed.
@@ -1147,7 +1147,7 @@ Section Vremove_last.
   Proof.
     intros n v x. apply Veq_nth. intros i h.
     rewrite Vnth_remove_last, Vnth_add.
-    destruct (eq_nat_dec i n). omega. apply Vnth_eq. refl.
+    destruct (eq_nat_dec i n). lia. apply Vnth_eq. refl.
   Qed.
 
 End Vremove_last.
@@ -1507,7 +1507,7 @@ Section Vforall2.
     assert (hi' : i < n1+n2). omega.
     assert (a1 : Vnth v1 hi = Vnth (Vapp v1 v2) hi').
     rewrite Vnth_app. destruct (Compare_dec.le_gt_dec n1 i).
-    omega. apply Vnth_eq. refl.
+    lia. apply Vnth_eq. refl.
     assert (a2 : Vnth v1' hi = Vnth (Vapp v1' v2') hi').
     rewrite Vnth_app. destruct (Compare_dec.le_gt_dec n1 i).
     omega. apply Vnth_eq. refl.
@@ -1747,11 +1747,10 @@ Section Vbuild.
           Vcons (gen 0 _) (@Vbuild_spec p gen')
     end.
 
-  Solve Obligations with coq_omega.
-  (*COQ: why these obligations are not solved?*)
-  Next Obligation. coq_omega. Qed.
-  Next Obligation. coq_omega. Qed.
-  Next Obligation. coq_omega. Qed.
+  (* COQ: Solve Obligations with lia. does not give the same terms *)
+  Next Obligation. lia. Defined.
+  Next Obligation. lia. Defined.
+  Next Obligation. lia. Defined.
   Next Obligation.
     simpl. destruct i. f_equal. apply lt_unique.
     rewrite e. f_equal. apply lt_unique.
@@ -2341,7 +2340,7 @@ Proof.
   rewrite !Vnth_cons.
   destruct (lt_ge_dec 0 (S i)); destruct (lt_ge_dec 0 (S j)); try omega.
   rewrite Vnth_eq with (h2:=hi),
-    Vnth_eq with (h1 := Vnth_cons_tail_aux (lt_n_S hj) l0) (h2:=hj); omega.
+    Vnth_eq with (h1 := Vnth_cons_tail_aux (lt_n_S hj) l0) (h2:=hj); try trivial; omega.
 Qed.
 
 Lemma Vnth_opt_filter_sorted_None A p (ts : vector A p) :

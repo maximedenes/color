@@ -1768,40 +1768,7 @@ Module TermsEnv (Sig : TermsSig.Signature).
     autorewrite with datatypes.
     rewrite !env_sum_length.
     autorewrite with datatypes.
-    destruct (le_gt_dec (length El) (length Er)).
-
-    rewrite (@Max.max_r (length El) (length Er)); trivial.
-    destruct (le_gt_dec k (length Er)).
-    rewrite (Min.min_l k (length Er)); trivial.
-    destruct (le_gt_dec k (length El)).
-    rewrite (Min.min_l k (length El)); trivial.
-    rewrite Max.max_r; trivial.
-    omega.
-    rewrite Min.min_r; try omega.
-    rewrite Max.max_r; omega.
-    rewrite (Min.min_r k (length Er)); try omega.
-    destruct (le_gt_dec k (length El)).
-    omega.
-    rewrite (Min.min_r k (length El)); try omega.
-    rewrite Max.max_r; trivial.
-    omega.
-
-    rewrite (@Max.max_l (length El) (length Er)); trivial.
-    destruct (le_gt_dec k (length El)).
-    rewrite (Min.min_l k (length El)); trivial.
-    destruct (le_gt_dec k (length Er)).
-    rewrite (Min.min_l k (length Er)); trivial.
-    rewrite Max.max_l; trivial.
-    omega.
-    rewrite Min.min_r; try omega.
-    rewrite Max.max_l; omega.
-    rewrite (Min.min_r k (length El)); try omega.
-    destruct (le_gt_dec k (length Er)).
-    omega.
-    rewrite (Min.min_r k (length Er)); try omega.
-    rewrite Max.max_l; trivial.
-    omega.
-    omega.
+    lia.
   Qed.
 
   Lemma loweredEnv_distr_sum_equiv : forall El Er n,
@@ -1891,40 +1858,7 @@ Module TermsEnv (Sig : TermsSig.Signature).
     autorewrite with datatypes.
     rewrite !env_sum_length.
     autorewrite with datatypes.
-    destruct (le_gt_dec (length El) (length Er)).
-
-    rewrite (@Max.max_r (length El) (length Er)); trivial.
-    destruct (le_gt_dec n (length Er)).
-    rewrite (Min.min_l n (length Er)); trivial.
-    destruct (le_gt_dec n (length El)).
-    rewrite (Min.min_l n (length El)); trivial.
-    rewrite Max.max_r; trivial.
-    omega.
-    rewrite Min.min_r; try omega.
-    rewrite Max.max_r; omega.
-    rewrite (Min.min_r n (length Er)); try omega.
-    destruct (le_gt_dec n (length El)).
-    omega.
-    rewrite (Min.min_r n (length El)); try omega.
-    rewrite Max.max_r; trivial.
-    omega.
-
-    rewrite (@Max.max_l (length El) (length Er)); trivial.
-    destruct (le_gt_dec n (length El)).
-    rewrite (Min.min_l n (length El)); trivial.
-    destruct (le_gt_dec n (length Er)).
-    rewrite (Min.min_l n (length Er)); trivial.
-    rewrite Max.max_l; trivial.
-    omega.
-    rewrite Min.min_r; try omega.
-    rewrite Max.max_l; omega.
-    rewrite (Min.min_r n (length El)); try omega.
-    destruct (le_gt_dec n (length Er)).
-    omega.
-    rewrite (Min.min_r n (length Er)); try omega.
-    rewrite Max.max_l; trivial.
-    omega.
-    omega.
+    lia.
   Qed.
 
   Lemma lift_tail : forall E n k,

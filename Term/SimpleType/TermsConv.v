@@ -122,8 +122,6 @@ Module TermsConv (Sig : TermsSig.Signature).
     intros i j.
     apply (@build_envSub (fun x y => x = i /\ y = j) (S (Max.max i j))); fo.
     destruct (eq_nat_dec i0 i); destruct (eq_nat_dec j0 j); fo.
-    rewrite H; auto with arith.
-    rewrite H0; auto with arith.
   Defined.
 
   Definition idEnvSubst : nat -> EnvSubst.

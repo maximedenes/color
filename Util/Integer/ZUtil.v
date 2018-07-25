@@ -49,8 +49,8 @@ Lemma beq_Z_ok : forall x y, beq_Z x y = true <-> x = y.
 
 Proof.
 induction x; destruct y; simpl; intros; try (intuition; discr).
-rewrite beq_pos_ok. intuition. subst. refl. inversion H. refl.
-rewrite beq_pos_ok. intuition. subst. refl. inversion H. refl.
+rewrite beq_pos_ok. intuition. inversion H. refl.
+rewrite beq_pos_ok. intuition. inversion H. refl.
 Qed.
 
 (***********************************************************************)

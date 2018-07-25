@@ -352,13 +352,13 @@ subst. rewrite minus_diag in *. nia.
 assert (r2 - r1 < b). clear -H H0; omega.
 rewrite <- H2 in H4. rewrite <- (mult_1_l b) in H4 at -1.
 ded (mult_lt_r_elim H4).
-assert (q1=q2). clear H H0 H1 H3 H4; omega.
+assert (q1=q2). clear H H0 H1 H3 H4. nia.
 subst q2; clear H2 H3 H4 H5. omega.
 (* r1 > r2 *)
 assert (r1 - r2 < b). clear -H H0; omega.
 rewrite <- H3 in H4. rewrite <- (mult_1_l b) in H4 at -1.
 ded (mult_lt_r_elim H4).
-assert (q1=q2). clear H H0 H1 H2 H4; omega.
+assert (q1=q2). clear H H0 H1 H2 H4; nia.
 subst q2; clear H2 H3 H4 H5. omega.
 Qed.
 

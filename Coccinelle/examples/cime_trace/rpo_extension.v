@@ -5,13 +5,12 @@ From CoLoR Require equational_theory.
 From CoLoR Require equational_extension.
 From CoLoR Require term.
 From CoLoR Require subterm_dp.
-From Coq Require Import List.
+From Coq Require Import List ZArith.
 From CoLoR Require Import list_permut.
 From CoLoR Require Import terminaison.
 From Coq Require Import Relations.
-From Coq Require Import ROmega.
+From Coq Require Import Lia.
 From CoLoR Require order_extension.
-From Coq Require Import Omega.
 
 Set Implicit Arguments.
 
